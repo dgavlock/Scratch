@@ -1,0 +1,32 @@
+# %% codecell
+import numpy as np
+from scipy import integrate
+import matplotlib.pyplot as plt
+# %% codecell
+def relative_state_F(F_a, F_b, kb, T):
+    return np.exp(-F_a/(kb*T))/np.exp(-F_b/(kb*T))
+# %% codecell
+F_a = np.linspace(0, .1, 100)
+F_b = np.linspace(0, 1, 100)
+kb = 1
+T = 1 #np.linspace(1, 300, 1000)
+
+
+F_a_Test = [relative_state_F(F_a, F_b, kb, T)]
+# %% codecell
+F_a_Test = np.array(F_a_Test)
+max(F_a_Test[0])
+# %% codecell
+plt.plot(F_a_Test[0, :])
+# %% codecell
+
+# %% codecell
+U = 10 #np.linspace(.001, 100, 1000)
+V = 1000
+V0 = 1
+
+def integrand(U, kb, T):
+    return -U/(kb*T)
+
+I = integrate.quad(integrand, V0, V, args=(U, kb))
+# %% codecell
